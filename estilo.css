@@ -1,0 +1,25 @@
+body{
+    border: 1px solid beige;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+
+}
+
+header{
+    background-color: rgb(145, 179, 162);
+    border: 1px solid slateblue;
+    padding: 15px;
+}
+
+section{
+    background-color: aquamarine;
+    border: 1px solid salmon;
+}
+
+div{
+    background-color: bisque;
+    border: 1px solid brown;
+    padding: 10px;
+}
+
