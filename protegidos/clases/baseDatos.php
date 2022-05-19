@@ -27,7 +27,8 @@ class Base_Datos{
                 $resultado = $this->conexion->query($codigo);
                 while($fila = $resultado->fetch_assoc()){
                     $listar[]=$fila;
-                } 
+                    
+                }
                 return $listar;
                 break;
 

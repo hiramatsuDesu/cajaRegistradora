@@ -1,0 +1,29 @@
+
+        include("protegidos/recursos.php");
+        if($datos = $caj->seleccionarUnCajero($_POST['cajNro'])){
+            echo "Cajero Habilitado: ".$datos[0]['nombre']." ".$datos[0]['apellido']."<p>Cajero Nro: ".$datos[0]['id_cajero']."</p>";
+        }else{
+            echo "No ha seleccionado un cajero valido";
+        }
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE ventas (id_operacion int(5) NOT NULL AUTO_INCREMENT, id_cajero int(4), id_producto int(4), detalle VARCHAR(100), precio DECIMAL(7,2), fecha DATE, hora DATE, PRIMARY KEY(id_operacion), FOREIGN KEY(id_cajero) REFERENCES cajeros(id_cajero), FOREIGN KEY(id_producto) REFERENCES productos(id_producto));
+
+
+
+
+
+
+
+
+
+

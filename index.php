@@ -23,9 +23,14 @@
     </div>
 
     <div>
-        <a href="formProductos.php"><input type="button" value="Productos">
+        <a href="formProductos.php"><input type="button" value="Productos"></a>
+
+        <a href="formCajero.php"><input type="button" value="Cajeros"></a>
+
+        <a href="caja.php"><input type="button" value="Caja">
         </a>
     </div>
+    
 </section>
 
 <footer></footer>

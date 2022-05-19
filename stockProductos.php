@@ -52,6 +52,7 @@
                 <td colspan="2">Acciones</td>
                 </tr> 
                 <?php
+                  
                     for($i=0; $i<count($mostrarProductos); $i++){
 
                 ?>
