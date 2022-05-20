@@ -27,7 +27,7 @@
 
         <a href="formCajero.php"><input type="button" value="Cajeros"></a>
 
-        <a href="caja.php"><input type="button" value="Caja">
+        <a href="aperturaCaja.php"><input type="button" value="Caja">
         </a>
     </div>
     

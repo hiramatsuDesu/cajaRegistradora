@@ -1,6 +1,13 @@
 <?php
+session_start();
 include("recursos.php");
-$cajero = $_POST['id'];
+$nro = $_POST['cajNro'];
+if($caj->seleccionarUnCajero($nro)){
+    $_SESSION['cajero'] = $nro;
+    header("Location: ../aperturaCaja.php#session");
+}else{
+    header("Location: ../aperturaCaja.php?Error_session");
+}
 
-header("Location: ../aperturaCaja.php?ok");
 ?>
+

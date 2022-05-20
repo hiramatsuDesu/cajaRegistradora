@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,10 +23,25 @@
 
 <section>
    
-<div>
-    <?php
+<div id="session">
+<h3>Ingrese los datos del cajero</h3>
+<form action="protegidos/altaVenta.php" method="POST">
+    <label>Ingrese Nro de Cajero</label><br>
+    <input type="number" name="cajNro"><br>
 
-        
+    <input type="submit" value="Enviar">
+</form>
+
+<?php
+if(isset($_SESSION['cajero'])){
+
+?>
+
+</div>
+
+
+<div>    
+    <?php
         date_default_timezone_set('America/Argentina/Cordoba');
         $fecha = date("d/m/Y");
         $hora = date('H:i:s');
@@ -30,6 +49,17 @@
         echo "<p>Hora: ".$hora."</p>";
     ?>
 
+</div>
+
+
+<div>
+    <h3>Buscar Productos</h3>
+    <form name="formulario" action="aperturaCaja.php#librerias" method="POST">
+        <label>Detalle: </label><br>
+        <input type="text" name="search_text" value="<?php $searchText ?>" placeholder="Buscar por detalle"><br>
+
+        <input type="submit" value="Buscar">
+    </form>
 </div>
 
 <div>
@@ -70,8 +100,8 @@
         <td>Codigo Producto</td>
         <td>Detalle</td>
         <td>Precio</td>
-        <td>Cantidad</td>
-        <td colspan = "2">Acciones</td>
+        <td>Cantidad Disponible</td>
+        
     </tr>
     <?php
     if(mysqli_num_rows($result)!=0){
@@ -101,10 +131,7 @@
                 echo $prod['cantidad'];
             ?>
         </td>
-        <td>
-            <a href="protegidos/altaVenta.php?id=<?php echo $prod['id_producto']; ?>">Agregar</a>
-        </td>
-
+        
     </tr>
 
     <?php
@@ -132,14 +159,31 @@
         ?>
 
     </table>
-
-
-
     </br>
+</div>
+
+<div>
+<h3>Ingrese Datos del producto</h3>
+
+<form action="protegidos/ventas.php" method="POST">
+    <label>Código del producto </label><br>
+    <input type="number" name="codProd"><br>
+
+    <label>Ingrese cantidad</label><br>
+    <input type="number" name="cant"><br>
+
+    <input type="submit">
+
+</form>
+
+
+</div>
 
 
 
-    <?php
+
+<div>
+<?php
         include("protegidos/recursos.php");
         $mostrar = $operacion->mostrarVenta();
     ?>
@@ -152,8 +196,11 @@
         <td>Codigo de Producto</td>
         <td>Detalle de producto</td>
         <td>Precio Unitario</td>
+        <td>Fecha</td>
+        <td>Hora</td>
+       
         <td>Cantidad</td>
-        <td>Total</td>
+        <td>Sub Total</td>
         <td colspan = "2">Acciones</td>
     </tr>
         <?php
@@ -207,9 +254,11 @@
                 ?>
             </td>
             <td>
-                Eliminar
+                <a href="protegidos/eliminarVenta.php?cod=<?php echo $mostrar[$i]['id_producto'] ?>">
+                Eliminar</a>
             </td>
             <td>
+                <a href="protegidos/modificarVenta.php?id=<?php echo $mostrar[$i]['id_operacion'] ?>">
                 Modificar
             </td>
 
@@ -220,28 +269,33 @@
         }
         ?>
     </table>
-
-
-
-
-
+    <?php
+        }else if($_GET['Error_session']){
+            echo "<p>Ingrese un cajero valido</p>";
+        }
+    ?>
 </div>
 
+<div>
+    <h3>Total</h3>
+    <?php
+    $total=0;
+    for($i=0; $i<count($mostrar); $i++){
+    $total += $mostrar[$i]['precioTotal'];
+    
+    }echo $total;
+    ?>
+</div>
 
 <div>
-    <h3>Buscar Productos</h3>
-    <form name="formulario" action="aperturaCaja.php#librerias" method="POST">
-        <label>Codigo de Producto: </label><br>
-        <input type="number" name="search_text" value="<?php  $searchText; ?>" placheholder="Buscar por código"><br>
-
-        <label>Detalle: </label><br>
-        <input type="text" name="search_text" value="<?php $searchText ?>" placeholder="Buscar por detalle"><br>
-
-        <input type="submit" value="Buscar">
-    </form>
+    <h3>Fin de la operacion</h3>
+    <a href="librerias/fpdf/ticket.php" target="_blank">
+    <input type="button" value="Emitir ticket">
+    </a>
 </div>
 
 </section>
+
 
 <footer></footer>
 
